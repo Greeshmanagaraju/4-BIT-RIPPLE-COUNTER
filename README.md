@@ -24,17 +24,90 @@ In timing diagram Q0 is changing as soon as the negative edge of clock pulse is 
 
 **Procedure**
 
-/* write all the steps invloved */
+1.Create a new project in Quartus Prime.
+
+2.Enter the 4-bit Ripple Counter Verilog code.
+
+3.Save the Verilog file.
+
+4.Compile the program.
+
+5.Check and correct any compilation errors.
+
+6.Generate the RTL schematic.
+
+7.Perform the functional simulation.
+
+8.Apply clock and reset inputs.
+
+9.Observe the counter outputs Q0, Q1, Q2, and Q3.
+
+10.Verify the output sequence with the functional table.
+
 
 **PROGRAM**
 
 /* Program for 4 Bit Ripple Counter and verify its truth table in quartus using Verilog programming.
 
- Developed by: RegisterNumber:
+ Developed by: GREESHMA NAGARAJU
+ 
+ RegisterNumber: 212225040102
 */
+```
+module EXP6_0102(q, clk, reset);
+
+output [3:0] q;
+input clk, reset;
+
+T_FF tff0(q[0], clk, reset);
+T_FF tff1(q[1], q[0], reset);
+T_FF tff2(q[2], q[1], reset);
+T_FF tff3(q[3], q[2], reset);
+
+endmodule
+
+
+module T_FF(q, clk, reset);
+
+output q;
+input clk, reset;
+
+wire d;
+
+D_FF dff0(q, d, clk, reset);
+
+not n1(d, q);
+
+endmodule
+
+
+module D_FF(q, d, clk, reset);
+
+output q;
+input d, clk, reset;
+
+reg q;
+
+always @(negedge clk or posedge reset)
+begin
+    if (reset)
+        q = 1'b0;
+    else
+        q = d;
+end
+
+endmodule
+```
 
 **RTL LOGIC FOR 4 Bit Ripple Counter**
 
+<img width="1723" height="913" alt="image" src="https://github.com/user-attachments/assets/2cd7e65a-593c-4538-a6f8-926db8916ae2" />
+
+
 **TIMING DIGRAMS FOR 4 Bit Ripple Counter**
+<img width="1719" height="915" alt="image" src="https://github.com/user-attachments/assets/f1526837-f615-44d4-8634-3d490f59476f" />
+
 
 **RESULTS**
+
+The 4-bit Ripple Counter was successfully designed and its counting operation was verified.
